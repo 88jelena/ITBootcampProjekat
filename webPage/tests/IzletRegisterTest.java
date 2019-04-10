@@ -1,11 +1,11 @@
 package webPage.tests;
 
-import java.util.Scanner;
+import java.util.Scanner; 
 
 import org.openqa.selenium.WebDriver;
 
 import utility.*;
-import webPage.objects.IzletHomePage;
+import webPage.objects.IzletLogIn;
 import webPage.objects.IzletRegister;
 
 public class IzletRegisterTest {
@@ -44,6 +44,17 @@ public class IzletRegisterTest {
 		IzletRegister.clickRegisterButton(wd);
 	}
 
+	public static void testUserRegister(WebDriver wd, Scanner sc) throws Exception {
+		userRegister(wd, sc);
+		IzletLogInTest.userLogIn(wd, sc);
+
+		if (wd.getCurrentUrl().equals(IzletLogIn.LOG_IN_URL)) {
+			System.out.println("Registration was successful.");
+		} else
+			System.out.println("Registration was not successful.");
+
+	}
+
 	// Method to fill in Registration form using data from Excel file
 	public static void fillRegForm(WebDriver wd, int i) throws Exception {
 
@@ -77,25 +88,23 @@ public class IzletRegisterTest {
 
 		// Submit
 		IzletRegister.clickRegisterButton(wd);
-		
-		if (wd.getCurrentUrl().equals(IzletHomePage.PAGE_URL)) {
-			System.out.println("Registration was not successful.");
-		} else {
-			System.out.println("Registration was successful.");
-		}
+
 	}
 
-	// mMethod to test Registration form row by row, with all data from Excel file
-	public static void testWithAllRegData(WebDriver wd) throws Exception {
-		IzletExcelUtils.setExcelFile(IzletDataExcel.PATH + IzletDataExcel.FILE_NAME, IzletDataExcel.SHEET_NAME_1);
-		for (int i = 1; i < IzletExcelUtils.getRowCount(IzletDataExcel.SHEET_NAME_1); i++) {
-			fillRegForm(wd, i);
-			if (wd.getCurrentUrl().equals(IzletHomePage.PAGE_URL)) {
-				IzletExcelUtils.setCellData(IzletDataExcel.SHEET_NAME_1, "Fail", i, 6); // test results written in Excel
-			} else {
-				IzletExcelUtils.setCellData(IzletDataExcel.SHEET_NAME_1, "Pass", i, 6); // test results written in Excel
-				wd.navigate().to(IzletHomePage.PAGE_URL);
-			}
+	// Method to test Registration form row by row, with all data from Excel file
+	public static void testRegForm(WebDriver wd, int i) throws Exception {
+
+		fillRegForm(wd, i);
+		IzletLogInTest.testLogInForm(wd, i);
+
+		IzletExcelUtils.setCellData(IzletDataExcel.SHEET_NAME_1, "RegStatus", 0, 6); // naming column for reg test
+		// results
+		if (wd.getCurrentUrl().equals(IzletLogIn.LOG_IN_URL)) {
+			System.out.println("Registration was successful.");
+			IzletExcelUtils.setCellData(IzletDataExcel.SHEET_NAME_1, "Pass", i, 6); // test results written in Excel
+		} else {
+			System.out.println("Registration was not successful.");
+			IzletExcelUtils.setCellData(IzletDataExcel.SHEET_NAME_1, "Fail", i, 6); // test results written in Excel
 		}
 
 	}

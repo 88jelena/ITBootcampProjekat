@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 import utility.*;
 import webPage.objects.IzletHomePage;
-
+import webPage.objects.IzletLogIn;
 
 public class IzletHomePageTest {
 
@@ -15,22 +15,26 @@ public class IzletHomePageTest {
 		}
 	}
 
-	// Method to test Registration and LogIn row by row, with all data from Excel file
+	// Method to test Registration and LogIn row by row, with all data from Excel
+	// file
 	// written in IHomePageTest class because
 	// HomePage contains Registration and LogIn fields
+
 	public static void testWithAllData(WebDriver wd) throws Exception {
 
 		// Set Excel file
 		IzletExcelUtils.setExcelFile(IzletDataExcel.PATH + IzletDataExcel.FILE_NAME, IzletDataExcel.SHEET_NAME_1);
-		
-		IzletExcelUtils.setCellData(IzletDataExcel.SHEET_NAME_1, "RegStatus", 0, 6); // naming column for reg test results
-		IzletExcelUtils.setCellData(IzletDataExcel.SHEET_NAME_1, "LogStatus", 0, 7); // naming column for log test results
+
 		for (int i = 1; i < IzletExcelUtils.getRowCount(IzletDataExcel.SHEET_NAME_1); i++) {
 
-			IzletRegisterTest.fillRegForm(wd, i);
-			IzletLogInTest.fillLogInForm(wd, i); 
-			IzletLogInTest.LogOut(wd);
-			
+			IzletRegisterTest.testRegForm(wd, i);
+
+			if (wd.getCurrentUrl().equals(IzletLogIn.LOG_IN_URL)) {
+				IzletLogInTest.LogOut(wd);
+			} else {
+				wd.navigate().to(IzletHomePage.PAGE_URL);
+
+			}
 		}
 	}
 

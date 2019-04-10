@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 
 public class IzletLogIn {
 
-	public static final String LOG_IN_URL = "http://localhost/izlet/dashboard.php";
+	public static final String LOG_IN_URL = "https://izlet.000webhostapp.com/izlet/dashboard.php";
 
 	private static final String USER = "//input[@placeholder='username']";
 	private static final String PASS = "//input[@placeholder='password']";

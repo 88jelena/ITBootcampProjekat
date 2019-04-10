@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 public class IzletHomePage {
 
-	public static final String PAGE_URL = "http://localhost/izlet/";
+	public static final String PAGE_URL = "https://izlet.000webhostapp.com/izlet/";
 
 	// Method to open HomePage
 	public static void openPage(WebDriver wd) {

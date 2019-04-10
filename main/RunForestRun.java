@@ -1,6 +1,6 @@
 package main;
 
-import java.util.Scanner; 
+import java.util.Scanner;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -24,37 +24,35 @@ public class RunForestRun {
 
 			IzletHomePageTest.openHomePage(wd);
 
-/*			System.out.println("If you want to enter registration and log in information by yourself, type 1");
+			System.out.println("If you want to enter registration and log in information by yourself, type 1");
 			System.out.println("If you want data to be loaded from the Excel file, type 2 ");
 
 			int a = sc.nextInt();
 			switch (a) {
 			case 1:
-				IRegisterTest.userRegister(wd, sc);
-				ILogInTest.userLogIn(wd, sc);
+				IzletRegisterTest.testUserRegister(wd, sc);
+				IzletLogInTest.LogOut(wd);
 				break;
 			case 2:
-				IHomePageTest.testWithAllData(wd);
+				IzletHomePageTest.testWithAllData(wd);
 				break;
 			default:
 				System.out.println("You entered the wrong number");
 			}
-			*/
-			IzletRegisterTest.fillRegForm(wd, 3); // register 3rd person from excel file
-			IzletLogInTest.fillLogInForm(wd, 3); // log in 3rd person form excel file
-			Thread.sleep(3000);
 			
-			IzletPostTest.newPost(wd, 17, "Bus");
-			IzletPostTest.newPost(wd, 48, "Motorbike");
-		//	IzletPostTest.multiplePosts(wd, "Motorbike"); // set several post
-			IzletEditAndDeleteTest.deletePost(wd, 0); // delete second post
-		//	IzletEditAndDeleteTest.deleteMultiplePosts(wd, 6); // delete 6 most recent posts
-			IzletEditAndDeleteTest.userEditedPost(wd, sc, 0); // edit most recent post
-			Thread.sleep(3000);
-			
-			IzletLogInTest.LogOut(wd); //log out 3rd person
-			
-
+			 IzletRegisterTest.testRegForm(wd, 3); // register and log in 3rd person from excel file 
+			 Thread.sleep(3000);
+			 
+			 IzletPostTest.newPost(wd, 17, "Bus");
+			 IzletPostTest.newPost(wd, 48, "Motorbike"); 
+			 IzletPostTest.multiplePosts(wd, "Motorbike"); // set several posts 
+			 IzletEditAndDeleteTest.deletePost(wd, 0); // delete second post //
+			 IzletEditAndDeleteTest.deleteMultiplePosts(wd, 6); // delete 6 most recent posts 
+			 IzletEditAndDeleteTest.userEditedPost(wd, sc, 0); // edit most recent post 
+			 Thread.sleep(3000);
+			 IzletLogInTest.LogOut(wd); //log out 3rd person
+			 
+			 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {

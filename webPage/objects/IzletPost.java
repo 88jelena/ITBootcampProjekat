@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 
 public class IzletPost {
 
-	public static final String POST_URL = "http://localhost/izlet/dashboard.php";
+	public static final String POST_URL = "https://izlet.000webhostapp.com/izlet/dashboard.php";
 	public static final String IMG1_PATH = "C:\\Users\\Coye\\coye_2.jpg";
 
 	private static final String NEW_POST = "//a[contains(text(),'Make a post')]";

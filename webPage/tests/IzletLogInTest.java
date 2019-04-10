@@ -1,11 +1,10 @@
 package webPage.tests;
 
-import java.util.Scanner;
+import java.util.Scanner; 
 
 import org.openqa.selenium.WebDriver;
 
 import utility.*;
-import webPage.objects.IzletHomePage;
 import webPage.objects.IzletLogIn;
 
 public class IzletLogInTest {
@@ -60,38 +59,26 @@ public class IzletLogInTest {
 
 		// Submit
 		IzletLogIn.clickLogInButton(wd);
+
+	}
+
+	public static void testLogInForm(WebDriver wd, int i) throws Exception {
+		fillLogInForm(wd, i);
+
+		IzletExcelUtils.setCellData(IzletDataExcel.SHEET_NAME_1, "LogStatus", 0, 7); // naming column for log test
+		// results
 		if (wd.getCurrentUrl().equals(IzletLogIn.LOG_IN_URL)) {
 			System.out.println("Log in was successful.");
-		} else
+			IzletExcelUtils.setCellData(IzletDataExcel.SHEET_NAME_1, "Pass", i, 7); // test results written in Excel
+		} else {
 			System.out.println("Log in was not successful.");
+			IzletExcelUtils.setCellData(IzletDataExcel.SHEET_NAME_1, "Fail", i, 7); // test results written in Excel
 		}
-
-	
+	}
 
 	// Method to LogOut
 	public static void LogOut(WebDriver wd) throws Exception {
 		IzletLogIn.clickLogOutButton(wd);
-		if (wd.getCurrentUrl().equals(IzletHomePage.PAGE_URL)) {
-			System.out.println("Log out was not successful.");
-		} else
-			System.out.println("Log out was successful.");
-		
-	}
-
-	// Method to test LogIn and LogOut row by row, with all data from Excel file
-	public static void testWithAllLogData(WebDriver wd) throws Exception {
-		IzletExcelUtils.setExcelFile(IzletDataExcel.PATH + IzletDataExcel.FILE_NAME, IzletDataExcel.SHEET_NAME_1);
-		for (int i = 1; i < IzletExcelUtils.getRowCount(IzletDataExcel.SHEET_NAME_1); i++) {
-			fillLogInForm(wd, i);
-			if (wd.getCurrentUrl().equals(IzletLogIn.LOG_IN_URL)) {
-				IzletExcelUtils.setCellData(IzletDataExcel.SHEET_NAME_1, "Pass", i, 7); // test results written in Excel
-				LogOut(wd);
-			} else
-				IzletExcelUtils.setCellData(IzletDataExcel.SHEET_NAME_1, "Fail", i, 7); // test results written in Excel
-			wd.navigate().to(IzletHomePage.PAGE_URL);
-
-		}
-
 	}
 
 }
