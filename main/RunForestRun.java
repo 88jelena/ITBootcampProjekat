@@ -46,7 +46,7 @@ public class RunForestRun {
 			 IzletPostTest.newPost(wd, 17, "Bus");
 			 IzletPostTest.newPost(wd, 48, "Motorbike"); 
 			 IzletPostTest.multiplePosts(wd, "Motorbike"); // set several posts 
-			 IzletEditAndDeleteTest.deletePost(wd, 0); // delete second post //
+			 IzletEditAndDeleteTest.deletePost(wd, 2); // delete second post
 			 IzletEditAndDeleteTest.deleteMultiplePosts(wd, 6); // delete 6 most recent posts 
 			 IzletEditAndDeleteTest.userEditedPost(wd, sc, 0); // edit most recent post 
 			 Thread.sleep(3000);
